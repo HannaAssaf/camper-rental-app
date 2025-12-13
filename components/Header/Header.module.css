@@ -1,0 +1,38 @@
+.header {
+  padding: 28px 0;
+  background-color: var(--color-badge);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.container {
+  min-width: 768px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.navLink {
+  font-size: var(--body-m-size);
+  font-weight: var(--body-m-weight);
+  color: var(--text-primary);
+  transition: color 0.3s;
+}
+
+.navLink:hover {
+  color: var(--color-button-hover);
+}
