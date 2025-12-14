@@ -5,7 +5,7 @@ import "@/styles/variables.css";
 import Header from "@/components/Header/Header";
 
 const inter = Inter({
-  variable: "--font-geist-sans",
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });

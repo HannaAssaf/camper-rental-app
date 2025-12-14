@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import css from "./Header.module.css";
+import { usePathname } from "next/navigation";
 
-export default async function Header() {
+export default function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const isCatalog = pathname === "/campers";
+
   return (
     <header className={css.header}>
       <div className={css.container}>
@@ -18,12 +25,18 @@ export default async function Header() {
           </Link>
           <ul className={css.navList}>
             <li>
-              <Link href="/" className={css.navLink}>
+              <Link
+                href="/"
+                className={`${css.navLink} ${isHome ? css.active : ""}`}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/campers" className={css.navLink}>
+              <Link
+                href="/campers"
+                className={`${css.navLink} ${isCatalog ? css.active : ""}`}
+              >
                 Catalog
               </Link>
             </li>
