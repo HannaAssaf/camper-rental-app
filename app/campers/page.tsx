@@ -13,14 +13,16 @@ export default async function CampersPage() {
 
   return (
     <section>
-      {Array.isArray(campers) && campers.length > 0 ? (
-        <CampersList campers={campers} />
-      ) : (
-        <p>
-          No campers found. Count:{" "}
-          {Array.isArray(campers) ? campers.length : "not array"}
-        </p>
-      )}
+      <div>
+        {Array.isArray(campers) && campers.length > 0 ? (
+          <CampersList campers={campers} />
+        ) : (
+          <p>
+            No campers found. Count:{" "}
+            {Array.isArray(campers) ? campers.length : "not array"}
+          </p>
+        )}
+      </div>
     </section>
   );
 }

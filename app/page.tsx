@@ -1,5 +1,5 @@
-import Link from "next/link";
 import css from "./page.module.css";
+import { ButtonLink } from "@/components/ButtonLink/ButtonLink";
 
 export default function HomePage() {
   return (
@@ -9,9 +9,9 @@ export default function HomePage() {
         <h2 className={css.subtitle}>
           You can find everything you want in our catalog
         </h2>
-        <Link href="/campers" className={css.link}>
+        <ButtonLink href="/campers" className={css.link}>
           View Now
-        </Link>
+        </ButtonLink>
       </div>
     </div>
   );

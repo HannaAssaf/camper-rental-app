@@ -89,15 +89,4 @@
   margin-top: auto;
   height: 56px;
   padding: 16px 40px;
-  background-color: var(--btn-primary-bg);
-  color: var(--color-white);
-  font-size: var(--button-m-size);
-  font-weight: var(--button-m-weight);
-  line-height: var(--button-m-line);
-  border-radius: 200px;
-  transition: background-color 0.3s;
-}
-
-.link:hover {
-  background-color: var(--btn-primary-bg-hover);
 }

@@ -4,7 +4,7 @@ import { Camper } from "@/types/campers";
 import CamperMeta from "../CamperMeta/CamperMeta";
 import CamperEquipment from "../CamperEquipment/CamperEquipment";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
-import Link from "next/link";
+import { ButtonLink } from "../ButtonLink/ButtonLink";
 
 export default function VehicleItem({ camper }: { camper: Camper }) {
   return (
@@ -35,9 +35,9 @@ export default function VehicleItem({ camper }: { camper: Camper }) {
           />
           <p className={css.description}>{camper.description}</p>
           <CamperEquipment equipment={camper} variant="catalog" />
-          <Link href={`/campers/${camper.id}`} className={css.link}>
+          <ButtonLink href={`/campers/${camper.id}`} className={css.link}>
             Show more
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </div>
