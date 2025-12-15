@@ -45,3 +45,17 @@ export interface CampersResponse {
   total: number;
   items: Camper[];
 }
+
+export interface CamperEquipmentType {
+  transmission: Transmission;
+  engine: Engine;
+  AC: boolean;
+  bathroom: boolean;
+  kitchen: boolean;
+  TV: boolean;
+  radio: boolean;
+  refrigerator: boolean;
+  microwave: boolean;
+  gas: boolean;
+  water: boolean;
+}

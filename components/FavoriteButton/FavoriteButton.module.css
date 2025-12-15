@@ -1,0 +1,30 @@
+.btn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-main);
+  transition: fill 0.2s ease;
+}
+
+.btn:hover {
+  fill: var(--color-button);
+}
+.btn:hover svg {
+  stroke: var(--color-button-hover);
+  fill: none;
+}
+.liked .icon {
+  fill: var(--color-button);
+}
+.btn.favorite svg {
+  fill: var(--color-button);
+  stroke: none;
+}

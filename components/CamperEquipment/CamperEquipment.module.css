@@ -1,0 +1,42 @@
+.compact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.detailed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  height: 155px;
+  align-content: flex-start;
+  margin-bottom: 52px;
+}
+
+.catalogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 8px;
+  width: 100%;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--bg-badge);
+  border-radius: 100px;
+  padding: 12px 18px;
+  font-size: var(--body-m-size);
+  line-height: var(--body-m-line);
+  font-weight: var(--body-m-weight);
+  color: var(--badge-text);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
