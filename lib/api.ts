@@ -6,7 +6,41 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export async function getCampers(): Promise<Camper[]> {
-  const { data } = await api.get<CampersResponse>("/campers");
+export type EquipmentKey = "AC" | "kitchen" | "bathroom" | "TV" | "automatic";
+export type VehicleTypeValue = "panelTruck" | "fullyIntegrated" | "alcove";
+
+export type ApiFilters = {
+  location?: string;
+  form?: VehicleTypeValue;
+  eq?: EquipmentKey[];
+};
+
+export async function getCampers(filters?: ApiFilters): Promise<Camper[]> {
+  const params: Record<string, string> = {};
+  if (filters?.location) params.location = filters.location;
+
+  if (filters?.form) params.form = filters.form;
+
+  for (const key of filters?.eq ?? []) {
+    if (key === "automatic") {
+      params.transmission = "automatic";
+    } else {
+      params[key] = "true";
+    }
+  }
+
+  const { data } = await api.get<CampersResponse>("/campers", { params });
   return data.items;
+}
+
+export async function getLocations(
+  filters?: Omit<ApiFilters, "location">
+): Promise<string[]> {
+  const items = await getCampers({
+    form: filters?.form,
+    eq: filters?.eq,
+  });
+
+  const set = new Set(items.map((x) => x.location));
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
 }

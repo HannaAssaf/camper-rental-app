@@ -1,6 +1,6 @@
-import CampersList from "@/components/CampersList/CampersList";
-import { getCampers } from "@/lib/api";
 import { Metadata } from "next";
+import CampersListClient from "./CamperListClient";
+import css from "./CampersLayout.module.css";
 
 export const metadata: Metadata = {
   title: "Campers | TravelTrucks",
@@ -8,21 +8,10 @@ export const metadata: Metadata = {
     "Discover top-quality campers and travel trucks ready for your next adventure. Browse listings, compare models, and choose the ideal vehicle.",
 };
 
-export default async function CampersPage() {
-  const campers = await getCampers();
-
+export default function CampersPage() {
   return (
-    <section>
-      <div>
-        {Array.isArray(campers) && campers.length > 0 ? (
-          <CampersList campers={campers} />
-        ) : (
-          <p>
-            No campers found. Count:{" "}
-            {Array.isArray(campers) ? campers.length : "not array"}
-          </p>
-        )}
-      </div>
-    </section>
+    <div className={css.content}>
+      <CampersListClient />
+    </div>
   );
 }

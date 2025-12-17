@@ -17,3 +17,25 @@ export const equipmentConfig: Record<
   gas: { label: "Gas", icon: "gas" },
   water: { label: "Water", icon: "water" },
 };
+
+export const vehicleTypes = [
+  { value: "panelTruck" as const, label: "Van" },
+  { value: "fullyIntegrated" as const, label: "Fully Integrated" },
+  { value: "alcove" as const, label: "Alcove" },
+] as const;
+
+export type VehicleTypeValue = (typeof vehicleTypes)[number]["value"];
+
+export type EquipmentKey = "AC" | "kitchen" | "bathroom" | "TV" | "automatic";
+
+export const equipmentOptions: Array<{
+  key: EquipmentKey;
+  label: string;
+  icon: IconName;
+}> = [
+  { key: "AC", label: "AC", icon: "ac" },
+  { key: "automatic", label: "Automatic", icon: "transmission" },
+  { key: "kitchen", label: "Kitchen", icon: "kitchen" },
+  { key: "TV", label: "TV", icon: "tv" },
+  { key: "bathroom", label: "Bathroom", icon: "bathroom" },
+];
