@@ -1,0 +1,29 @@
+.btn {
+  font-size: var(--button-m-size);
+  font-weight: var(--button-m-weight);
+  line-height: var(--button-m-line);
+  border-radius: 200px;
+  transition: background-color 0.3s;
+}
+
+.primary {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 166px;
+  color: var(--color-white);
+  background-color: var(--btn-primary-bg);
+}
+
+.primary:hover {
+  background-color: var(--btn-primary-bg-hover);
+}
+
+.pagination {
+  background: transparent;
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--border-light);
+}
+
+.pagination:hover {
+  border-color: var(--btn-secondary-bg-hover);
+}

@@ -15,6 +15,7 @@ import {
 import { useCampersStore } from "@/store/useCampersStore";
 import { getLocations } from "@/lib/api";
 import Icon from "../Icon/Icon";
+import Button from "../Button/Button";
 
 function parseCsv(value: string | null): string[] {
   if (!value) return [];
@@ -137,19 +138,28 @@ export default function Filter() {
     router.replace("/campers");
   };
 
+  const hasActiveFilters =
+    Boolean(filters.location) ||
+    filters.equipment.length > 0 ||
+    Boolean(filters.vehicleType);
+
   return (
-    <div className={css.sidebar}>
+    <div>
       {/* Location */}
       <div className={css.group}>
         <label className={css.label}>Location</label>
-
         <div className={css.locationWrap} ref={locationRef}>
-          <div className={css.locationInput}>
-            <span className={css.locationIcon} aria-hidden="true" />
+          <div className={css.locationInput} data-filled={!!filters.location}>
+            <svg className={css.iconMap} aria-hidden="true">
+              <use href="/icons.svg#map" />
+            </svg>
+
+            <span className={css.value} data-placeholder={!filters.location}>
+              {filters.location || "City"}
+            </span>
             <input
-              className={css.inputField}
+              className={css.hiddenInput}
               value={filters.location}
-              placeholder="City"
               onChange={(e) => {
                 setFilters({ ...filters, location: e.target.value });
                 setIsLocationOpen(true);
@@ -161,16 +171,29 @@ export default function Filter() {
           {isLocationOpen && (
             <div className={css.dropdown} role="listbox">
               {filteredLocations.length ? (
-                filteredLocations.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={css.dropdownItem}
-                    onClick={() => selectLocation(item)}
-                  >
-                    {item}
-                  </button>
-                ))
+                filteredLocations.map((item) => {
+                  const [city, country] = item.split(",").map((s) => s.trim());
+
+                  return (
+                    <button
+                      key={item}
+                      type="button"
+                      className={css.dropdownItem}
+                      onClick={() => selectLocation(item)}
+                    >
+                      <svg className={css.itemIcon} aria-hidden="true">
+                        <use href="/icons.svg#map" />
+                      </svg>
+
+                      <span className={css.itemText}>
+                        <span className={css.itemCity}>{city}</span>
+                        {country ? (
+                          <span className={css.itemCountry}>, {country}</span>
+                        ) : null}
+                      </span>
+                    </button>
+                  );
+                })
               ) : (
                 <div className={css.dropdownEmpty}>No matches</div>
               )}
@@ -183,7 +206,8 @@ export default function Filter() {
       <div className={css.group}>
         <p className={css.title}>Filters</p>
 
-        <p className={css.subTitle}>Vehicle equipment</p>
+        <h3 className={css.subTitle}>Vehicle equipment</h3>
+        <hr className={css.divider} />
         <div className={css.grid}>
           {equipmentOptions.map((opt) => (
             <button
@@ -204,31 +228,42 @@ export default function Filter() {
             </button>
           ))}
         </div>
-
-        <p className={css.subTitle}>Vehicle type</p>
-        <div className={css.grid}>
-          {vehicleTypes.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              className={`${css.chip} ${
-                filters.vehicleType === opt.value ? css.active : ""
-              }`}
-              aria-pressed={filters.vehicleType === opt.value}
-              onClick={() => selectVehicleType(opt.value)}
-            >
-              {opt.label}
-            </button>
-          ))}
+        <div>
+          <h3 className={css.subTitle}>Vehicle type</h3>
+          <hr className={css.divider} />
+          <div className={css.grid}>
+            {vehicleTypes.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                className={`${css.chip} ${
+                  filters.vehicleType === opt.value ? css.active : ""
+                }`}
+                aria-pressed={filters.vehicleType === opt.value}
+                onClick={() => selectVehicleType(opt.value)}
+              >
+                <Icon
+                  name={opt.icon}
+                  className={css.icon}
+                  width={28}
+                  height={28}
+                />
+                <span className={css.chipLabel}>{opt.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className={css.actions}>
-          <button className={css.searchBtn} onClick={onSearch}>
+          <Button variant="primary" onClick={onSearch}>
             Search
-          </button>
-          <button className={css.resetBtn} onClick={onReset}>
-            Reset
-          </button>
+          </Button>
+
+          {hasActiveFilters && (
+            <Button variant="primary" onClick={onReset}>
+              Reset
+            </Button>
+          )}
         </div>
       </div>
     </div>

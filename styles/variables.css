@@ -6,8 +6,8 @@
   --color-button-hover: #d84343;
   --color-rating: #ffc531;
   --color-gray-light: #dadde1;
-  --color-input: #f2f4f7;
-  --color-badge: #f7f7f7;
+  --color-input: #f7f7f7;
+  --color-badge: #f2f4f7;
   --color-white: #ffffff;
   --color-hero-title: #f7f7f7;
   --text-primary: var(--color-main);
@@ -22,9 +22,13 @@
   --border-light: var(--color-gray-light);
   --btn-primary-bg: var(--color-button);
   --btn-primary-bg-hover: var(--color-button-hover);
+  --btn-secondary-bg-hover: var(--color-text);
   --btn-primary-text: var(--color-white);
+  --btn-secondary-text: var(--color-main);
   --badge-bg: var(--color-badge);
   --badge-text: var(--color-main);
+  --input-text: var(--color-main);
+  --input-placeholder-text: var(--color-gray);
   --rating-star: var(--color-rating);
 
   --font-base: var(--font-inter);

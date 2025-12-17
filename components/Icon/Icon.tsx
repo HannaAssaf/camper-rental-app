@@ -9,7 +9,10 @@ export type IconName =
   | "refrigerator"
   | "microwave"
   | "gas"
-  | "water";
+  | "water"
+  | "van"
+  | "fully-integrated"
+  | "alcove";
 
 interface IconProps {
   name: IconName;

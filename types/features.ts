@@ -19,9 +19,13 @@ export const equipmentConfig: Record<
 };
 
 export const vehicleTypes = [
-  { value: "panelTruck" as const, label: "Van" },
-  { value: "fullyIntegrated" as const, label: "Fully Integrated" },
-  { value: "alcove" as const, label: "Alcove" },
+  { value: "panelTruck", label: "Van", icon: "van" },
+  {
+    value: "fullyIntegrated",
+    label: "Fully Integrated",
+    icon: "fully-integrated",
+  },
+  { value: "alcove", label: "Alcove", icon: "alcove" },
 ] as const;
 
 export type VehicleTypeValue = (typeof vehicleTypes)[number]["value"];
