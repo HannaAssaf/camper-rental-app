@@ -35,3 +35,18 @@ export function toCamperView(c: Camper): CamperView {
     },
   };
 }
+
+export const vehicleDetailsConfig: Record<
+  keyof CamperDetailsProp,
+  {
+    label: string;
+    capitalize?: boolean;
+  }
+> = {
+  form: { label: "Form", capitalize: true },
+  length: { label: "Length" },
+  width: { label: "Width" },
+  height: { label: "Height" },
+  tank: { label: "Tank" },
+  consumption: { label: "Consumption" },
+};

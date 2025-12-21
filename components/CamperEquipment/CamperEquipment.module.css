@@ -8,9 +8,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  height: 155px;
+  min-height: 155px;
   align-content: flex-start;
-  margin-bottom: 52px;
+  margin-bottom: 44px;
 }
 
 .catalogGrid {
@@ -32,6 +32,10 @@
   line-height: var(--body-m-line);
   font-weight: var(--body-m-weight);
   color: var(--badge-text);
+}
+
+.detailed .badge {
+  background: var(--bg-badge-detailed);
 }
 
 .icon {
