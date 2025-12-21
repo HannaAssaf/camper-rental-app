@@ -1,7 +1,28 @@
-export default function IdPage() {
+import { getCamperById } from "@/lib/api";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import CardDetailsClient from "./CardDetailsClient";
+
+type PageProps = {
+  params: { id: string };
+};
+
+export default async function IdPage({ params }: PageProps) {
+  const { id } = params;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["vehicle", id],
+    queryFn: () => getCamperById(id),
+  });
+
   return (
-    <div>
-      <h2>Id camper</h2>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CardDetailsClient />
+    </HydrationBoundary>
   );
 }

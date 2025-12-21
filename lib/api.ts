@@ -79,3 +79,8 @@ export async function getLocations(
   const set = new Set(res.items.map((x: Camper) => x.location));
   return Array.from(set).sort((a, b) => a.localeCompare(b));
 }
+
+export const getCamperById = async (id: string) => {
+  const response = await api.get<Camper>(`/campers/${id}`);
+  return response.data;
+};

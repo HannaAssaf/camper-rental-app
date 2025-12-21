@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import CampersListClient from "./CamperListClient";
 import css from "./CampersLayout.module.css";
+import Filter from "@/components/Filter/Filter";
 
 export const metadata: Metadata = {
   title: "Campers | TravelTrucks",
@@ -10,8 +11,15 @@ export const metadata: Metadata = {
 
 export default function CampersPage() {
   return (
-    <div className={css.content}>
-      <CampersListClient />
-    </div>
+    <section>
+      <div className={css.container}>
+        <aside className={css.sidebar}>
+          <Filter />
+        </aside>
+        <div className={css.content}>
+          <CampersListClient />
+        </div>
+      </div>
+    </section>
   );
 }

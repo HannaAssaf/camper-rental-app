@@ -1,4 +1,3 @@
-import Filter from "@/components/Filter/Filter";
 import css from "./CampersLayout.module.css";
 
 type Props = {
@@ -8,10 +7,7 @@ type Props = {
 const CampersLayout = ({ children }: Props) => {
   return (
     <section className={css.page}>
-      <div className={css.container}>
-        <aside className={css.sidebar}>
-          <Filter />
-        </aside>
+      <div >
         <div className={css.content}>{children}</div>
       </div>
     </section>
