@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import Image from "next/image";
 import { getCamperById } from "@/lib/api";
 import CamperMeta from "@/components/CamperMeta/CamperMeta";
@@ -11,9 +10,11 @@ import { toCamperView } from "@/types/camperview";
 import type { CamperView } from "@/types/camperview";
 import { Camper } from "@/types/campers";
 
-export default function CardDetailsClient() {
-  const { id } = useParams<{ id: string }>();
+type Props = {
+  id: string;
+};
 
+export default function CardDetailsClient({ id }: Props) {
   const {
     data: camperView,
     isLoading,
@@ -21,18 +22,14 @@ export default function CardDetailsClient() {
   } = useQuery<Camper, Error, CamperView>({
     queryKey: ["vehicle", id],
     queryFn: () => getCamperById(id),
-    enabled: !!id,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     select: toCamperView,
   });
-  if (isLoading) {
-    return <div className={css.page}>Loading...</div>;
-  }
 
-  if (isError || !camperView) {
-    return <div className={css.page}>Failed to load </div>;
-  }
+  if (isLoading) return <div className={css.page}>Loading...</div>;
+  if (isError || !camperView)
+    return <div className={css.page}>Failed to load</div>;
 
   return (
     <div className={css.container}>
@@ -54,7 +51,6 @@ export default function CardDetailsClient() {
                 width={292}
                 height={312}
                 unoptimized
-                style={{ borderRadius: "12px", objectFit: "cover" }}
               />
             </div>
           ))}

@@ -7,11 +7,11 @@ import {
 import CardDetailsClient from "./CardDetailsClient";
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function IdPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const queryClient = new QueryClient();
 
@@ -22,7 +22,7 @@ export default async function IdPage({ params }: PageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardDetailsClient />
+      <CardDetailsClient id={id} />
     </HydrationBoundary>
   );
 }

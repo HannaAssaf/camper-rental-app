@@ -18,6 +18,6 @@ export default function CampersTabsContent({ camper, activeTab }: Props) {
       <CamperFeatures camper={camper} />
     </div>
   ) : (
-    <CamperReviews />
+    <CamperReviews reviews={camper.reviews} />
   );
 }
