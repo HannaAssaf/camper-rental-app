@@ -1,0 +1,5 @@
+.detailsCard {
+  background-color: var(--bg-input);
+  border-radius: 20px;
+  padding: 44px 52px;
+}

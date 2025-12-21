@@ -1,0 +1,28 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 631px 641px;
+  column-gap: 40px;
+  row-gap: 44px;
+  margin-top: 44px;
+  align-items: start;
+}
+
+.headerRow {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 24px;
+}
+
+.leftCol {
+  grid-column: 1;
+}
+
+.rightCol {
+  grid-column: 2;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 44px 57px;
+}

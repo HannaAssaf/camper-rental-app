@@ -59,3 +59,17 @@ export interface CamperEquipmentType {
   gas: boolean;
   water: boolean;
 }
+
+export interface CamperDetailsProp {
+  form: CamperForm;
+  length: string;
+  width: string;
+  height: string;
+  tank: string;
+  consumption: string;
+}
+
+export type CamperView = Camper & {
+  equipment: CamperEquipmentType;
+  details: CamperDetailsProp;
+};

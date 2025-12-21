@@ -4,47 +4,52 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { getCamperById } from "@/lib/api";
-import type { Camper } from "@/types/campers";
 import CamperMeta from "@/components/CamperMeta/CamperMeta";
 import css from "./CardDetailsClient.module.css";
 import CamperDetailsSection from "@/components/CamperDetailsSection/CamperDetailsSection";
+import { toCamperView } from "@/types/camperview";
+import type { CamperView } from "@/types/camperview";
+import { Camper } from "@/types/campers";
 
 export default function CardDetailsClient() {
   const { id } = useParams<{ id: string }>();
+
   const {
-    data: vehicle,
+    data: camperView,
     isLoading,
     isError,
-  } = useQuery<Camper>({
+  } = useQuery<Camper, Error, CamperView>({
     queryKey: ["vehicle", id],
     queryFn: () => getCamperById(id),
+    enabled: !!id,
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    select: toCamperView,
   });
-
   if (isLoading) {
     return <div className={css.page}>Loading...</div>;
   }
 
-  if (isError || !vehicle) {
+  if (isError || !camperView) {
     return <div className={css.page}>Failed to load </div>;
   }
 
   return (
     <div className={css.container}>
       <section className={css.metaSection} aria-label="Camper descriptions">
-        <h2 className={css.title}>{vehicle.name}</h2>
+        <h2 className={css.title}>{camperView.name}</h2>
         <CamperMeta
-          rating={vehicle.rating}
-          reviewsCount={vehicle.reviews.length}
-          location={vehicle.location}
+          rating={camperView.rating}
+          reviewsCount={camperView.reviews.length}
+          location={camperView.location}
         />
-        <p className={css.price}>€{vehicle.price.toFixed(2)}</p>
+        <p className={css.price}>€{camperView.price.toFixed(2)}</p>
         <div className={css.gallery}>
-          {vehicle.gallery.slice(0, 4).map((img, index) => (
+          {camperView.gallery.slice(0, 4).map((img, index) => (
             <div className={css.imageWrapper} key={index}>
               <Image
                 src={img.original}
-                alt={`${vehicle.name} photo ${index + 1}`}
+                alt={`${camperView.name} photo ${index + 1}`}
                 className={css.image}
                 width={292}
                 height={312}
@@ -54,9 +59,9 @@ export default function CardDetailsClient() {
             </div>
           ))}
         </div>
-        <p className={css.description}>{vehicle.description}</p>
+        <p className={css.description}>{camperView.description}</p>
       </section>
-      <CamperDetailsSection />
+      <CamperDetailsSection camper={camperView} />
     </div>
   );
 }
