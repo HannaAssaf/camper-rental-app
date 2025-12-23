@@ -1,6 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import css from "./BookingForm.module.css";
+import DatePickerField from "../DatePicker/DatePickerField";
 
 export default function BookingForm() {
+  const [date, setDate] = useState<Date | null>(null);
+
   return (
     <div className={css.card}>
       <h3 className={css.title}>Book your campervan now</h3>
@@ -16,7 +22,6 @@ export default function BookingForm() {
           placeholder="Name*"
           className={css.input}
         />
-
         <input
           type="email"
           name="email"
@@ -25,12 +30,13 @@ export default function BookingForm() {
           className={css.input}
         />
 
-        <input
-          type="date"
+        <DatePickerField
           name="date"
           required
-          placeholder="Booking date*"
-          className={css.input}
+          value={date}
+          onChange={setDate}
+          labelClosed="Booking date*"
+          labelOpened="Select a date between today"
         />
 
         <textarea

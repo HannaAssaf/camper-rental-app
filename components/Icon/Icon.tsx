@@ -12,7 +12,9 @@ export type IconName =
   | "water"
   | "van"
   | "fully-integrated"
-  | "alcove";
+  | "alcove"
+  | "calendar-nav-left"
+  | "calendar-nav-right";
 
 interface IconProps {
   name: IconName;

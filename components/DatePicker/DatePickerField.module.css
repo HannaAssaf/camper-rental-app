@@ -1,0 +1,197 @@
+.wrapper {
+  width: 100%;
+}
+
+.hiddenDate {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.input {
+  height: 60px;
+  width: 100%;
+  border: 1px solid var(--color-badge);
+  border-radius: 12px;
+  padding: 18px 18px;
+  font-size: var(--body-s-size);
+  font-family: inherit;
+  background: var(--bg-input);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.inputSelected {
+  height: 60px;
+  width: 100%;
+  border: 1px solid var(--color-badge);
+  border-radius: 12px;
+  padding: 18px 18px;
+  font-size: var(--body-s-size);
+  font-family: inherit;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.dropdown {
+  width: 276px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--color-text);
+  background: var(--bg-card);
+  overflow: visible;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 11px;
+  background: var(--color-text);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: 1;
+}
+
+.dropdown::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  background: var(--bg-card);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: 2;
+}
+
+.dropdown[data-position^="top"]::before,
+.dropdown[data-placement^="top"]::before {
+  top: auto;
+  bottom: -11px;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.dropdown[data-position^="top"]::after,
+.dropdown[data-placement^="top"]::after {
+  top: auto;
+  bottom: -10px;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.dropdown :global(.mantine-DatePicker-levelsGroup) {
+  padding: 12px;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+.calendarHeader {
+  position: relative;
+  margin-bottom: 12px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.monthTitle {
+  font-weight: var(--h3-weight);
+  font-size: var(--button-m-size);
+  color: var(--text-primary);
+}
+
+.navBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 0;
+}
+
+.navBtn:hover,
+.navBtn:active,
+.navBtn:focus-visible {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.navSvg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text);
+}
+
+.weekdaysRow {
+  position: relative;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: none;
+}
+
+.weekdaysRow::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-text);
+}
+
+.weekday {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-secondary);
+  padding-bottom: 12px;
+}
+
+.day {
+  font-weight: var(--body-s-weight);
+  font-size: var(--body-s-size);
+  line-height: var(--body-m-line);
+  color: var(--text-secondary);
+  border-radius: 999px;
+}
+
+.day[data-outside]:not([data-selected]) {
+  color: var(--text-muted);
+}
+
+.day[data-outside]:hover {
+  background: transparent;
+}
+
+.day:not([data-outside]):not([data-disabled]):not([data-selected]):hover {
+  background: var(--color-gray-light);
+}
+
+.day[data-selected] {
+  background: var(--color-text);
+  color: var(--color-input);
+  opacity: 1;
+}
+
+.day[data-outside][data-selected] {
+  opacity: 1;
+  filter: none;
+}
+
+.day[data-selected]:hover {
+  background: var(--color-gray);
+}

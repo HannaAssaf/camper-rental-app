@@ -3,7 +3,6 @@
 import CamperEquipment from "@/components/CamperEquipment/CamperEquipment";
 import type { CamperView } from "@/types/camperview";
 import VehicleDetails from "../VehicleDetails/VehicleDetails";
-
 type Props = {
   camper: CamperView;
 };

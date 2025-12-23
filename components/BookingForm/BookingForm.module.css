@@ -1,3 +1,7 @@
+.card {
+  width: 100%;
+}
+
 .title {
   font-size: var(--h3-size);
   line-height: var(--h3-line);
@@ -37,12 +41,27 @@
 }
 .textarea {
   min-height: 120px;
+  resize: none;
 }
 
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: var(--color-button);
+}
+
+.input:focus,
+.textarea:focus {
+  color: var(--text-primary);
+}
+
+.input:not(:placeholder-shown),
+.textarea:not(:placeholder-shown) {
+  color: var(--text-primary);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .button {

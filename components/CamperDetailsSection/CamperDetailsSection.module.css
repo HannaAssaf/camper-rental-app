@@ -17,8 +17,12 @@
 
 .leftCol {
   grid-column: 1;
+  display: flex;
 }
 
+.leftCol > * {
+  flex: 1;
+}
 .rightCol {
   display: flex;
   grid-column: 2;
@@ -26,8 +30,4 @@
   border: 1px solid var(--border-light);
   border-radius: 20px;
   padding: 44px 57px;
-}
-
-.rightCol > * {
-  flex: 1;
 }
