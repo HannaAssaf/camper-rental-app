@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+.input::placeholder {
+  color: var(--text-muted);
+}
+
 .inputSelected {
   height: 60px;
   width: 100%;
@@ -33,7 +37,6 @@
   font-family: inherit;
   background: var(--bg-input);
   color: var(--text-primary);
-  cursor: pointer;
 }
 
 .dropdown {
