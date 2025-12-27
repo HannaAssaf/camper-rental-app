@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import css from "./BookingForm.module.css";
 import DatePickerField from "../DatePicker/DatePickerField";
@@ -13,10 +13,18 @@ type Errors = {
   comment?: string;
 };
 
+type Field = keyof Errors;
+
 const NAME_RE = /^[A-Za-zÀ-ÖØ-öø-ÿА-Яа-яІіЇїЄєҐґ'’ -]+$/;
 
 function isValidEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function toStartOfDay(x: Date) {
+  const d = new Date(x);
+  d.setHours(0, 0, 0, 0);
+  return d;
 }
 
 export default function BookingForm() {
@@ -24,34 +32,6 @@ export default function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { draft, setField, clear } = useFormStore();
   const [date, setDate] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setDate(draft.dateISO ? new Date(draft.dateISO) : null);
-  }, [draft.dateISO]);
-
-  function validateAll(fd: FormData, selectedDate: Date | null): Errors {
-    const e: Errors = {};
-
-    const name = String(fd.get("name") ?? "");
-    const email = String(fd.get("email") ?? "");
-    const comment = String(fd.get("comment") ?? "");
-
-    const nameMsg = validateField("name", name, selectedDate);
-    if (nameMsg) e.name = nameMsg;
-
-    const emailMsg = validateField("email", email, selectedDate);
-    if (emailMsg) e.email = emailMsg;
-
-    const dateMsg = validateField("date", "", selectedDate);
-    if (dateMsg) e.date = dateMsg;
-
-    const commentMsg = validateField("comment", comment, selectedDate);
-    if (commentMsg) e.comment = commentMsg;
-
-    return e;
-  }
-
-  type Field = keyof Errors;
 
   function setFieldError(field: Field, message?: string) {
     setErrors((prev) => ({ ...prev, [field]: message }));
@@ -85,18 +65,31 @@ export default function BookingForm() {
 
     if (field === "date") {
       if (!selectedDate) return "Booking date is required";
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const d = new Date(selectedDate);
-      d.setHours(0, 0, 0, 0);
+      const today = toStartOfDay(new Date());
+      const d = toStartOfDay(selectedDate);
 
       if (d < today) return "Date cannot be in the past";
       return undefined;
     }
-
     return undefined;
+  }
+
+  function validateAll(selectedDate: Date | null): Errors {
+    const e: Errors = {};
+
+    const nameMsg = validateField("name", draft.name, selectedDate);
+    if (nameMsg) e.name = nameMsg;
+
+    const emailMsg = validateField("email", draft.email, selectedDate);
+    if (emailMsg) e.email = emailMsg;
+
+    const dateMsg = validateField("date", "", selectedDate);
+    if (dateMsg) e.date = dateMsg;
+
+    const commentMsg = validateField("comment", draft.comment, selectedDate);
+    if (commentMsg) e.comment = commentMsg;
+
+    return e;
   }
 
   function handleBlur(field: Field) {
@@ -118,18 +111,13 @@ export default function BookingForm() {
 
   function handleDateChange(d: Date | null) {
     setDate(d);
-    setField("dateISO", d ? d.toISOString() : "");
     setFieldError("date", validateField("date", "", d));
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-
-    const nextErrors = validateAll(fd, date);
-
+    const nextErrors = validateAll(date);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -139,10 +127,10 @@ export default function BookingForm() {
 
     try {
       setIsSubmitting(true);
-      form.reset();
+      clear();
       setDate(null);
       setErrors({});
-      clear();
+
       toast.success("Your booking request has been sent!", {
         duration: 3000,
         style: {
@@ -170,7 +158,7 @@ export default function BookingForm() {
             type="text"
             name="name"
             placeholder="Name*"
-            defaultValue={draft.name}
+            value={draft.name}
             className={`${css.input} ${errors.name ? css.inputError : ""}`}
             aria-invalid={!!errors.name}
             onBlur={handleBlur("name")}
@@ -183,7 +171,7 @@ export default function BookingForm() {
             type="email"
             name="email"
             placeholder="Email*"
-            defaultValue={draft.email}
+            value={draft.email}
             className={`${css.input} ${errors.email ? css.inputError : ""}`}
             aria-invalid={!!errors.email}
             onBlur={handleBlur("email")}
@@ -199,7 +187,7 @@ export default function BookingForm() {
             onChange={handleDateChange}
             aria-invalid={!!errors.date}
             labelClosed="Booking date*"
-            labelOpened="Select a date between today"
+            labelOpened="Select a date from today"
           />
           {errors.date && <p className={css.error}>{errors.date}</p>}
         </div>
@@ -208,7 +196,7 @@ export default function BookingForm() {
             name="comment"
             rows={3}
             placeholder="Comment"
-            defaultValue={draft.comment}
+            value={draft.comment}
             className={`${css.textarea} ${
               errors.comment ? css.inputError : ""
             }`}

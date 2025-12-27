@@ -3,8 +3,8 @@ import { ButtonLink } from "@/components/ButtonLink/ButtonLink";
 
 export default function HomePage() {
   return (
-    <div className={css.container}>
-      <div>
+    <section className={css.page}>
+      <div className={css.container}>
         <h1 className={css.title}>Campers of your dreams</h1>
         <h2 className={css.subtitle}>
           You can find everything you want in our catalog
@@ -13,6 +13,6 @@ export default function HomePage() {
           View Now
         </ButtonLink>
       </div>
-    </div>
+    </section>
   );
 }

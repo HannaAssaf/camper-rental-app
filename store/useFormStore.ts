@@ -5,7 +5,6 @@ export type BookingDraft = {
   name: string;
   email: string;
   comment: string;
-  dateISO: string;
 };
 
 type FormStore = {
@@ -18,7 +17,6 @@ const initialDraft: BookingDraft = {
   name: "",
   email: "",
   comment: "",
-  dateISO: "",
 };
 
 export const useFormStore = create<FormStore>()(
