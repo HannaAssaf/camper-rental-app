@@ -26,5 +26,5 @@
 }
 
 .pagination:hover {
-  border-color: var(--btn-secondary-bg-hover);
+  border-color: var(--color-button-hover);
 }

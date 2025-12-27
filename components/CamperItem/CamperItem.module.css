@@ -86,7 +86,7 @@
 
 .link {
   align-self: flex-start;
-  margin-top: auto;
+  margin-top: 24px;
   height: 56px;
   padding: 16px 40px;
 }

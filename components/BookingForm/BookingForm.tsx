@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import css from "./BookingForm.module.css";
 import DatePickerField from "../DatePicker/DatePickerField";
+import { useFormStore } from "@/store/useFormStore";
 
 type Errors = {
   name?: string;
@@ -19,9 +20,14 @@ function isValidEmail(v: string) {
 }
 
 export default function BookingForm() {
-  const [date, setDate] = useState<Date | null>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { draft, setField, clear } = useFormStore();
+  const [date, setDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setDate(draft.dateISO ? new Date(draft.dateISO) : null);
+  }, [draft.dateISO]);
 
   function validateAll(fd: FormData, selectedDate: Date | null): Errors {
     const e: Errors = {};
@@ -104,6 +110,7 @@ export default function BookingForm() {
   function handleChange(field: Field) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const value = e.currentTarget.value;
+      setField(field as "name" | "email" | "comment", value);
       const msg = validateField(field, value, date);
       if (!msg) setFieldError(field, undefined);
     };
@@ -111,6 +118,7 @@ export default function BookingForm() {
 
   function handleDateChange(d: Date | null) {
     setDate(d);
+    setField("dateISO", d ? d.toISOString() : "");
     setFieldError("date", validateField("date", "", d));
   }
 
@@ -134,6 +142,7 @@ export default function BookingForm() {
       form.reset();
       setDate(null);
       setErrors({});
+      clear();
       toast.success("Your booking request has been sent!", {
         duration: 3000,
         style: {
@@ -161,6 +170,7 @@ export default function BookingForm() {
             type="text"
             name="name"
             placeholder="Name*"
+            defaultValue={draft.name}
             className={`${css.input} ${errors.name ? css.inputError : ""}`}
             aria-invalid={!!errors.name}
             onBlur={handleBlur("name")}
@@ -173,6 +183,7 @@ export default function BookingForm() {
             type="email"
             name="email"
             placeholder="Email*"
+            defaultValue={draft.email}
             className={`${css.input} ${errors.email ? css.inputError : ""}`}
             aria-invalid={!!errors.email}
             onBlur={handleBlur("email")}
@@ -197,6 +208,7 @@ export default function BookingForm() {
             name="comment"
             rows={3}
             placeholder="Comment"
+            defaultValue={draft.comment}
             className={`${css.textarea} ${
               errors.comment ? css.inputError : ""
             }`}

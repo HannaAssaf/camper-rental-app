@@ -25,7 +25,7 @@ export default function VehicleItem({ camper }: { camper: Camper }) {
             <h2 className={css.title}>{camper.name}</h2>
             <div className={css.headerRight}>
               <p className={css.price}>€{camper.price.toFixed(2)}</p>
-              <FavoriteButton />
+              <FavoriteButton id={camper.id} />
             </div>
           </div>
           <CamperMeta
